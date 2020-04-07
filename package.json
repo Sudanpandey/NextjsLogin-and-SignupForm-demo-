@@ -1,0 +1,21 @@
+{
+  "name": "formPractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.9.9",
+    "formik": "^2.1.4",
+    "next": "^9.3.4",
+    "react-dom": "^16.13.1",
+    "yup": "^0.28.3"
+  }
+}
