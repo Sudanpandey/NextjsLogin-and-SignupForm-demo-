@@ -1,10 +1,21 @@
 import React from "react";
-import { Typography, Box, Button, Avatar, Input } from "@material-ui/core";
-
-import { makeStyles } from "@material-ui/core/styles";
-
-import TextField from "@material-ui/core/TextField";
 import { Formik } from "formik";
+import * as Yup from "yup";
+import { Typography, Box, Button, Avatar, Input } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+
+const loginschema = Yup.object().shape({
+  email: Yup.string()
+    .min(2, "Too Short!")
+    .max(25, "Too Long!")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(2, "Too Short!")
+    .max(25, "Too Long!")
+    .min(6, "Password has to be longer than 6 characters!")
+    .required("password  is required"),
+});
 
 const useStyles = makeStyles({
   wrapper: {
@@ -19,7 +30,7 @@ const useStyles = makeStyles({
     height: "340px",
     backgroundColor: "#F7F7F7",
     padding: "20px",
-    margin: "80px", 
+    margin: "80px",
   },
   inputStyle: {
     backgroundColor: "#ffffff",
@@ -57,6 +68,7 @@ const Index = () => {
           onSubmit={(values, { resetForm }) => {
             console.log(values);
           }}
+          validationSchema={loginschema}
         >
           {({
             values,
@@ -76,9 +88,14 @@ const Index = () => {
                       name="email"
                       value={values.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="Enter your Email"
+                      disableUnderline={true}
                     />
                   </Box>
+                  <Typography style={{ fontSize: 12, color: "red" }}>
+                    {touched.email && errors.email}
+                  </Typography>
                 </Box>
                 <Box style={{ marginLeft: "65px ", marginTop: "15px" }}>
                   <Typography type="password">Password:</Typography>
@@ -86,10 +103,14 @@ const Index = () => {
                     <Input
                       name="password"
                       type="password"
-                      value={values.password}   
+                      value={values.password}
                       onChange={handleChange}
                       placeholder="Enter your Password "
+                      disableUnderline={true}
                     />
+                    <Typography style={{ fontSize: 12, color: "red" }}>
+                      {touched.password && errors.password}
+                    </Typography>
                   </Box>
                 </Box>
                 <Box style={{ marginLeft: "65px" }}>
@@ -114,4 +135,3 @@ const Index = () => {
   );
 };
 export default Index;
- 
