@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Router from "next/router";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Typography, Box, Button, Avatar, Input } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 
+import { Typography, Box, Button,  Input } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+// #validation  schema
 const loginschema = Yup.object().shape({
   email: Yup.string()
     .min(2, "Too Short!")
@@ -16,6 +18,8 @@ const loginschema = Yup.object().shape({
     .min(6, "Password has to be longer than 6 characters!")
     .required("password  is required"),
 });
+
+// #External Css define
 
 const useStyles = makeStyles({
   wrapper: {
@@ -47,6 +51,24 @@ const initialValues = {
 };
 
 const Index = () => {
+  // #local stoarage login
+
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      Router.push("/home");
+    } else {
+      setLoading(false);
+    }
+  });
+  const login = (values) => {
+    localStorage.setItem("token", values.username);
+    Router.push("/about");
+  };
+
+  // #local storage login method define end
+
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
@@ -62,11 +84,14 @@ const Index = () => {
             Log in
           </Typography>
         </Box>
-
+ 
+        {loading ? (
+          <h2>Loading.........</h2>
+        ) : (
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) => {
-            console.log(values);
+            login(values);
           }}
           validationSchema={loginschema}
         >
@@ -81,55 +106,59 @@ const Index = () => {
             console.log(values);
             return (
               <Box>
-                <Box style={{ marginLeft: "65px  " }}>
-                  <Typography>Email:</Typography>
-                  <Box className={classes.inputStyle}>
-                    <Input
-                      name="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Enter your Email"
-                      disableUnderline={true}
-                    />
+                <form onSubmit={handleSubmit}>
+                  <Box style={{ marginLeft: "65px  " }}>
+                    <Typography>Email:</Typography>
+                    <Box className={classes.inputStyle}>
+                      <Input
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Enter your Email"
+                        disableUnderline={true}
+                      />
+                    </Box>
+                    <Typography style={{ fontSize: 12, color: "red" }}>
+                      {touched.email && errors.email}
+                    </Typography>
                   </Box>
-                  <Typography style={{ fontSize: 12, color: "red" }}>
-                    {touched.email && errors.email}
-                  </Typography>
-                </Box>
-                <Box style={{ marginLeft: "65px ", marginTop: "15px" }}>
-                  <Typography type="password">Password:</Typography>
-                  <Box className={classes.inputStyle}>
-                    <Input
-                      name="password"
-                      type="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      placeholder="Enter your Password "
-                      disableUnderline={true}
-                    />
+                  <Box style={{ marginLeft: "65px ", marginTop: "15px" }}>
+                    <Typography type="password">Password:</Typography>
+                    <Box className={classes.inputStyle}>
+                      <Input
+                        name="password"
+                        type="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        placeholder="Enter your Password "
+                        disableUnderline={true}
+                      />
+                    </Box>
                     <Typography style={{ fontSize: 12, color: "red" }}>
                       {touched.password && errors.password}
                     </Typography>
                   </Box>
-                </Box>
-                <Box style={{ marginLeft: "65px" }}>
-                  <Button
-                    style={{
-                      marginTop: "50px",
-                      backgroundColor: "#347AB7",
-                      color: "white",
-                      width: "80%",
-                    }}
-                    variant="contained"
-                  >
-                    Log in
-                  </Button>
-                </Box>
+                  <Box style={{ marginLeft: "65px" }}>
+                    <Button
+                      style={{
+                        marginTop: "50px",
+                        backgroundColor: "#347AB7",
+                        color: "white",
+                        width: "80%",
+                      }}
+                      variant="contained"
+                      type="submit"
+                    >
+                      Log in
+                    </Button>
+                  </Box>
+                </form>
               </Box>
             );
           }}
         </Formik>
+        )}
       </Box>
     </div>
   );

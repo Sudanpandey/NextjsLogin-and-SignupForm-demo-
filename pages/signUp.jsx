@@ -25,7 +25,7 @@ const signupValidationSchema = Yup.object().shape({
   email: Yup.string()
     .min(2, "Too Short!")
     .max(25, "Too Long!")
-    
+
     .required("Email is required"),
   password: Yup.string()
     .min(2, "Too Short!")
@@ -110,7 +110,6 @@ const signUp = () => {
                       marginBottom: "25px",
                     }}
                   >
-                  
                     <Input
                       style={{
                         width: "100%",
@@ -130,9 +129,9 @@ const signUp = () => {
                       border="1px"
                       disableUnderline={true}
                     />
-                     <Typography style={{ fontSize: 12, color: "red" }}>
-                  {touched.firstname && errors.firstname}
-                </Typography>
+                    <Typography style={{ fontSize: 12, color: "red" }}>
+                      {touched.firstname && errors.firstname}
+                    </Typography>
 
                     <Input
                       style={{
@@ -153,9 +152,9 @@ const signUp = () => {
                       border="1px"
                       disableUnderline={true}
                     />
-                     <Typography style={{ fontSize: 12, color: "red" }}>
-                  {touched.lastname && errors.lastname}
-                </Typography>
+                    <Typography style={{ fontSize: 12, color: "red" }}>
+                      {touched.lastname && errors.lastname}
+                    </Typography>
                   </Box>
                   <Input
                     style={{
@@ -176,9 +175,9 @@ const signUp = () => {
                     border="1px"
                     disableUnderline={true}
                   />
-                   <Typography style={{ fontSize: 12, color: "red" }}>
-                  {touched.email && errors.email}
-                </Typography>
+                  <Typography style={{ fontSize: 12, color: "red" }}>
+                    {touched.email && errors.email}
+                  </Typography>
                   <Input
                     style={{
                       width: "100%",
@@ -200,9 +199,9 @@ const signUp = () => {
                     border="1px"
                     disableUnderline={true}
                   />
-                   <Typography style={{ fontSize: 12, color: "red" }}>
-                  {touched.password && errors.password}
-                </Typography>
+                  <Typography style={{ fontSize: 12, color: "red" }}>
+                    {touched.password && errors.password}
+                  </Typography>
                   <Input
                     style={{
                       width: "100%",
@@ -223,9 +222,9 @@ const signUp = () => {
                     border="1px"
                     disableUnderline={true}
                   />
-                   <Typography style={{ fontSize: 12, color: "red" }}>
-                  {touched.cpassword && errors.cpassword}
-                </Typography>
+                  <Typography style={{ fontSize: 12, color: "red" }}>
+                    {touched.cpassword && errors.cpassword}
+                  </Typography>
                   <Typography style={{ marginTop: "25px", color: "#9C9C9C" }}>
                     <Checkbox
                       style={{ color: "#A8A19C" }}
@@ -242,12 +241,13 @@ const signUp = () => {
                     backgroundColor: "#3598DC",
                     color: "#FFFFFF",
                     marginTop: "25px",
+
                     padding: "10px",
                   }}
                   variant="contained"
                   color="#337AB7"
                 >
-                  Sign in
+                  Sign up
                 </Button>
               </Box>
             );
