@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Router from "next/router";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Typography, Box, Button, Avatar, Input } from "@material-ui/core";
@@ -47,6 +48,19 @@ const initialValues = {
 };
 
 const Index = () => {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      Router.push("/home");
+    } else {
+      setLoading(false);
+    }
+  });
+  const login = (values) => {
+    localStorage.setItem("token", values.username);
+    Router.push("/home");
+  };
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
@@ -81,6 +95,7 @@ const Index = () => {
             console.log(values);
             return (
               <Box>
+                <form onSubmit={handleSubmit}>
                 <Box style={{ marginLeft: "65px  " }}>
                   <Typography>Email:</Typography>
                   <Box className={classes.inputStyle}>
@@ -126,9 +141,11 @@ const Index = () => {
                     Log in
                   </Button>
                 </Box>
+                </form>
               </Box>
             );
           }}
+          
         </Formik>
       </Box>
     </div>
