@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Router from "next/router";
+
+import { Formik } from "formik";
+import * as Yup from "yup";
+
 import {
   Typography,
   Box,
@@ -9,9 +14,6 @@ import {
   Link,
   Divider,
 } from "@material-ui/core";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import Router from "next/router";
 
 const logInValidationSchema = Yup.object().shape({
   username: Yup.string()
