@@ -3,7 +3,7 @@ import Router from "next/router";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { Typography, Box, Button,  Input } from "@material-ui/core";
+import { Typography, Box, Button, Input } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // #validation  schema
@@ -32,8 +32,8 @@ const useStyles = makeStyles({
     borderRadius: "5px",
     width: "350px",
     height: "340px",
-    backgroundColor: "#F7F7F7",
-    padding: "20px",
+    backgroundColor: "#E5E5E5",
+    padding: "30px",
     margin: "80px",
   },
   inputStyle: {
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #CCCCCC",
     borderRadius: "4px",
     padding: "0px 10px",
+    marginRight: "50px",
   },
 });
 
@@ -51,13 +52,11 @@ const initialValues = {
 };
 
 const Index = () => {
-  // #local stoarage login
-
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      Router.push("/home");
+      Router.push("/about");
     } else {
       setLoading(false);
     }
@@ -66,8 +65,6 @@ const Index = () => {
     localStorage.setItem("token", values.username);
     Router.push("/about");
   };
-
-  // #local storage login method define end
 
   const classes = useStyles();
   return (
@@ -84,29 +81,28 @@ const Index = () => {
             Log in
           </Typography>
         </Box>
- 
         {loading ? (
           <h2>Loading.........</h2>
         ) : (
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values, { resetForm }) => {
-            login(values);
-          }}
-          validationSchema={loginschema}
-        >
-          {({
-            values,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            errors,
-            touched,
-          }) => {
-            console.log(values);
-            return (
-              <Box>
-                <form onSubmit={handleSubmit}>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values, { resetForm }) => {
+              login(values);
+            }}
+            validationSchema={loginschema}
+          >
+            {({
+              values,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              errors,
+              touched,
+            }) => {
+              console.log(values);
+              return (
+                <Box>
+                    <form onSubmit={handleSubmit}>
                   <Box style={{ marginLeft: "65px  " }}>
                     <Typography>Email:</Typography>
                     <Box className={classes.inputStyle}>
@@ -142,8 +138,9 @@ const Index = () => {
                   <Box style={{ marginLeft: "65px" }}>
                     <Button
                       style={{
+                        marginLeft: "5px",
                         marginTop: "50px",
-                        backgroundColor: "#347AB7",
+                        backgroundColor: "#CE381C",
                         color: "white",
                         width: "80%",
                       }}
@@ -153,11 +150,12 @@ const Index = () => {
                       Log in
                     </Button>
                   </Box>
-                </form>
-              </Box>
-            );
-          }}
-        </Formik>
+                  </form>
+                </Box>
+              );
+            }}
+           
+          </Formik>
         )}
       </Box>
     </div>
