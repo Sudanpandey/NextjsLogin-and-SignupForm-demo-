@@ -3,9 +3,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Typography, Box, Button, Avatar, Input } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+   
 
-const loginschema = Yup.object().shape({
+const loginschema = Yup.object().shape({    
   email: Yup.string()
     .min(2, "Too Short!")
     .max(25, "Too Long!")
