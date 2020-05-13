@@ -27,7 +27,7 @@ const logInValidationSchema = Yup.object().shape({
 
 const initialValues = {
   username: " ",
-  password: "   ",
+  password: " ",
 };
 
 const Index = () => {
