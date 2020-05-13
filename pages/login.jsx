@@ -54,18 +54,39 @@ const Index = () => {
   // #local stoarage login
 
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      Router.push("/home");
+      Router.push("/mform");
     } else {
       setLoading(false);
     }
   });
-  const login = (values) => {
-    localStorage.setItem("token", values.username);
-    Router.push("/about");
-  };
+  
+	const login = async (values) => {
+		try {
+			const {
+				data: {
+					data: { token },
+				},
+			} = await axios.post("http://localhost:3000/login", values);
+			if (token) {
+				localStorage.setItem("token", token);
+				Router.push("/");
+			}
+		} catch (error) {
+			const {
+				response: {
+					data: { message },
+				}, 
+			} = error;
+			setMessage(message);
+		}
+	};
+
+
+
 
   // #local storage login method define end
 
@@ -81,7 +102,7 @@ const Index = () => {
           }}
         >
           <Typography style={{ fontSize: "35px", textAlign: "center" }}>
-            Log in
+            Log in      
           </Typography>
         </Box>
  

@@ -242,7 +242,7 @@ const mform = () => {
                   </Box>
                   <Box
                     style={{
-                      marginLeft: "15px",
+                      marginLeft: "15px", 
                       marginRight: "5px",
                       height: "320px",
                       width: "95%",
@@ -475,7 +475,7 @@ const mform = () => {
                   </Box>
 
                   <Box
-                    style={{
+                    style={{  
                       width: "100%",
                       backgroundColor: "#F2F7FA",
                     }}
